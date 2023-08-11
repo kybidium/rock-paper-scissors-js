@@ -26,8 +26,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-//plays a five round game of rock-paper-scissors
-
 function getPlayerChoice() {
     let choice = prompt("Pick Rock, Paper, or Scissors");
     if (!(choice.toLowerCase() == "rock"
@@ -46,6 +44,7 @@ function getPlayerChoice() {
 
 }
 
+//plays a five round game of rock-paper-scissors
 function game() {
     let winTally = 0;
     let lossTally = 0;
