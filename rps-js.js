@@ -13,23 +13,71 @@ function getComputerChoice() {
 
 //plays a round of the game
 function playRound(playerSelection, computerSelection) {
-    //standardizes choice names
-    playerSelection = (playerSelection[0].toUpperCase() + 
-        playerSelection.slice(1).toLowerCase());
-
     if (playerSelection == computerSelection) {
-        return "It's a draw!"
+        return "draw";
     } else if (
         (playerSelection == "Rock" && computerSelection == "Paper")
         || (playerSelection == "Paper" && computerSelection == "Scissors")
         || (playerSelection == "Scissors" && computerSelection == "Rock")
     ) {
-        return `You Lose! ${computerSelection} beats ${playerSelection}!`;
+        return "loss";
     } else {
-        return `You Win! ${playerSelection} beats ${computerSelection}!`;
+        return "win";
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+//plays a five round game of rock-paper-scissors
+
+function getPlayerChoice() {
+    let choice = prompt("Pick Rock, Paper, or Scissors");
+    if (!(choice.toLowerCase() == "rock"
+    || choice.toLowerCase() == "paper"
+    || choice.toLowerCase() == "scissors")) 
+    {
+        alert("Invalid choice!");
+        return;
+    } else {
+        //standardizes player input
+        choice = (choice[0].toUpperCase() + 
+            choice.slice(1).toLowerCase());
+
+        return choice;
+    }
+
+}
+
+function game() {
+    let win_tally = 0;
+    let loss_tally = 0;
+    for (let i = 0; i++; i<5) {
+        let p_choice = getPlayerChoice();
+        let c_choice = getComputerChoice();
+
+        if (p_choice != undefined) {
+            let status = playRound(p_choice, c_choice);
+            
+            if (status == "win") {
+                win_tally++;
+                console.log(`You Win! ${p_choice} beats ${c_choice}!`);
+            } else if (status == "loss") {
+                console.log(`You Lose! ${c_choice} beats ${p_choice}!`);
+                loss_tally++;
+            } else {
+                console.log("It's a draw!");
+            }
+        } else {
+        return;
+        }
+    }
+
+    if (win_tally == loss_tally) {
+        console.log(`You drew ${win_tally}-${loss_tally}! \
+            Better luck next time!`);
+    } else if (win_tally > loss_tally) {
+        console.log(`Well done! You won ${win_tally}-${loss_tally}!`);
+    } else {
+        console.log(`Shame! You lost ${win_tally}-${loss_tally}`);
+    }
+}
+
+game();
