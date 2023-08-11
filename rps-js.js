@@ -35,7 +35,7 @@ function getPlayerChoice() {
     || choice.toLowerCase() == "scissors")) 
     {
         alert("Invalid choice!");
-        getPlayerChoice();
+        return getPlayerChoice();
     } else {
         //standardizes player input
         choice = (choice[0].toUpperCase() + 
