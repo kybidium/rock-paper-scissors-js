@@ -5,9 +5,9 @@ function randomInt(num) {
 
 //return computer's choice of rock, paper, or scissors
 function getComputerChoice() {
-    let num_choi = randomInt(3);
-    if (num_choi == 0) return "Rock"
-    else if (num_choi == 1) return "Paper"
+    let numChoi = randomInt(3);
+    if (numChoi == 0) return "Rock"
+    else if (numChoi == 1) return "Paper"
     else return "Scissors";
 }
 
@@ -47,21 +47,21 @@ function getPlayerChoice() {
 }
 
 function game() {
-    let win_tally = 0;
-    let loss_tally = 0;
+    let winTally = 0;
+    let lossTally = 0;
     for (let i = 0; i<5; i++) {
-        let p_choice = getPlayerChoice();
-        let c_choice = getComputerChoice();
+        let pChoice = getPlayerChoice();
+        let cChoice = getComputerChoice();
 
-        if (p_choice != undefined) {
-            let status = playRound(p_choice, c_choice);
+        if (pChoice != undefined) {
+            let status = playRound(pChoice, cChoice);
             
             if (status == "win") {
-                win_tally++;
-                alert(`You Win! ${p_choice} beats ${c_choice}!`);
+                winTally++;
+                alert(`You Win! ${pChoice} beats ${cChoice}!`);
             } else if (status == "loss") {
-                alert(`You Lose! ${c_choice} beats ${p_choice}!`);
-                loss_tally++;
+                alert(`You Lose! ${cChoice} beats ${pChoice}!`);
+                lossTally++;
             } else {
                 alert("It's a draw!");
             }
@@ -70,13 +70,13 @@ function game() {
         }
     }
 
-    if (win_tally == loss_tally) {
-        alert(`You drew ${win_tally}-${loss_tally}! \
+    if (winTally == lossTally) {
+        alert(`You drew ${winTally}-${lossTally}! \
             Better luck next time!`);
-    } else if (win_tally > loss_tally) {
-        alert(`Well done! You won ${win_tally}-${loss_tally}!`);
+    } else if (winTally > lossTally) {
+        alert(`Well done! You won ${winTally}-${lossTally}!`);
     } else {
-        alert(`Shame! You lost ${win_tally}-${loss_tally}`);
+        alert(`Shame! You lost ${winTally}-${lossTally}`);
     }
 }
 
