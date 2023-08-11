@@ -35,7 +35,7 @@ function getPlayerChoice() {
     || choice.toLowerCase() == "scissors")) 
     {
         alert("Invalid choice!");
-        return;
+        getPlayerChoice();
     } else {
         //standardizes player input
         choice = (choice[0].toUpperCase() + 
@@ -58,12 +58,12 @@ function game() {
             
             if (status == "win") {
                 win_tally++;
-                console.log(`You Win! ${p_choice} beats ${c_choice}!`);
+                alert(`You Win! ${p_choice} beats ${c_choice}!`);
             } else if (status == "loss") {
-                console.log(`You Lose! ${c_choice} beats ${p_choice}!`);
+                alert(`You Lose! ${c_choice} beats ${p_choice}!`);
                 loss_tally++;
             } else {
-                console.log("It's a draw!");
+                alert("It's a draw!");
             }
         } else {
         return;
@@ -71,12 +71,12 @@ function game() {
     }
 
     if (win_tally == loss_tally) {
-        console.log(`You drew ${win_tally}-${loss_tally}! \
+        alert(`You drew ${win_tally}-${loss_tally}! \
             Better luck next time!`);
     } else if (win_tally > loss_tally) {
-        console.log(`Well done! You won ${win_tally}-${loss_tally}!`);
+        alert(`Well done! You won ${win_tally}-${loss_tally}!`);
     } else {
-        console.log(`Shame! You lost ${win_tally}-${loss_tally}`);
+        alert(`Shame! You lost ${win_tally}-${loss_tally}`);
     }
 }
 
