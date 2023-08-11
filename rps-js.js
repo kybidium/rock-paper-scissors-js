@@ -49,7 +49,7 @@ function getPlayerChoice() {
 function game() {
     let win_tally = 0;
     let loss_tally = 0;
-    for (let i = 0; i++; i<5) {
+    for (let i = 0; i<5; i++) {
         let p_choice = getPlayerChoice();
         let c_choice = getComputerChoice();
 
