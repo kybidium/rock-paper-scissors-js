@@ -44,39 +44,64 @@ function getPlayerChoice() {
 
 }
 
-//plays a five round game of rock-paper-scissors
-function game() {
-    let winTally = 0;
-    let lossTally = 0;
-    for (let i = 0; i<5; i++) {
-        let pChoice = getPlayerChoice();
-        let cChoice = getComputerChoice();
-
-        if (pChoice != undefined) {
-            let status = playRound(pChoice, cChoice);
-            
-            if (status == "win") {
-                winTally++;
-                alert(`You Win! ${pChoice} beats ${cChoice}!`);
-            } else if (status == "loss") {
-                alert(`You Lose! ${cChoice} beats ${pChoice}!`);
-                lossTally++;
-            } else {
-                alert("It's a draw!");
-            }
-        } else {
-        return;
-        }
-    }
-
-    if (winTally == lossTally) {
-        alert(`You drew ${winTally}-${lossTally}! \
-            Better luck next time!`);
-    } else if (winTally > lossTally) {
-        alert(`Well done! You won ${winTally}-${lossTally}!`);
+function getStatusMessage(status) {
+    if (status == "win") {
+        return `You Win! ${pChoice} beats ${cChoice}!`;
+    } else if (status == "loss") {
+        return `You Lose! ${cChoice} beats ${pChoice}!`;
     } else {
-        alert(`Shame! You lost ${winTally}-${lossTally}`);
+        return "It's a draw!";
+    }
+}
+//plays a five round game of rock-paper-scissors
+function endGame(winTally, lossTally) {
+    if (winTally == lossTally) {
+        results.textContent = `You drew ${winTally}-${lossTally}! \
+            Better luck next time!`;
+    } else if (winTally > lossTally) {
+        results.textContent = `Well done! You won ${winTally}-${lossTally}!`;
+    } else {
+        results.textContent = `Shame! You lost ${winTally}-${lossTally}`;
     }
 }
 
-game();
+
+
+
+const choices = document.querySelectorAll('.choice');
+const results = document.querySelector('#results')
+
+// I need to figure out variable consistency--rn click dependency
+//is messing everything up because the variables are outside the eventlistenr
+//so they are being treated as constant vars, within the function rungame
+//or some strange logic like that.
+function runGame () {
+    let clickTally = 0;
+    let winTally = 0;
+    let lossTally = 0;
+    let status;
+    choices.forEach((choice) => {
+        choice.addEventListener('click', () => {
+            clickTally++;
+            let playerChoice = choice.textContent;
+            let computerChoice = getComputerChoice();
+            status = playRound(playerChoice, computerChoice);
+
+            if (status === 'win') {
+                winTally++;
+            } else if (status === 'lose') {
+                loseTally++;
+            }
+
+            statusMessage = getStatusMessage(status);
+            results.textContent = `${statusMessage}
+            SCORE: ${winTally}-${lossTally}`;
+            if (clickTally > 5) {
+                endGame(winTally, lossTally);
+                clickTally = 0;
+            }
+        });
+    });
+}
+
+runGame();
