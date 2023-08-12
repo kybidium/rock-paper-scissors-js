@@ -44,15 +44,16 @@ function getPlayerChoice() {
 
 }
 
-function getStatusMessage(status) {
-    if (status == "win") {
+function getStatusMessage(statusCurr, pChoice, cChoice) {
+    if (statusCurr == "win") {
         return `You Win! ${pChoice} beats ${cChoice}!`;
-    } else if (status == "loss") {
+    } else if (statusCurr == "loss") {
         return `You Lose! ${cChoice} beats ${pChoice}!`;
     } else {
         return "It's a draw!";
     }
 }
+
 //plays a five round game of rock-paper-scissors
 function endGame(winTally, lossTally) {
     if (winTally == lossTally) {
@@ -71,34 +72,35 @@ function endGame(winTally, lossTally) {
 const choices = document.querySelectorAll('.choice');
 const results = document.querySelector('#results')
 
-// I need to figure out variable consistency--rn click dependency
-//is messing everything up because the variables are outside the eventlistenr
-//so they are being treated as constant vars, within the function rungame
-//or some strange logic like that.
 function runGame () {
     let clickTally = 0;
     let winTally = 0;
     let lossTally = 0;
-    let status;
+    let statusGame;
+
     choices.forEach((choice) => {
         choice.addEventListener('click', () => {
             clickTally++;
             let playerChoice = choice.textContent;
             let computerChoice = getComputerChoice();
-            status = playRound(playerChoice, computerChoice);
+            statusGame = playRound(playerChoice, computerChoice);
 
-            if (status === 'win') {
+            if (statusGame === 'win') {
                 winTally++;
-            } else if (status === 'lose') {
-                loseTally++;
+            } else if (statusGame === 'loss') {
+                lossTally++;
             }
 
-            statusMessage = getStatusMessage(status);
-            results.textContent = `${statusMessage}
-            SCORE: ${winTally}-${lossTally}`;
-            if (clickTally > 5) {
+            if (clickTally == 5) {
                 endGame(winTally, lossTally);
                 clickTally = 0;
+                winTally = 0;
+                lossTally = 0;
+            } else {
+            statusMessage = getStatusMessage(statusGame, playerChoice,
+                computerChoice);
+            results.textContent = `${statusMessage}
+            SCORE: ${winTally}-${lossTally}`;
             }
         });
     });
